@@ -11,6 +11,6 @@ WORKDIR /app
 COPY --from=build /app/dist .
 USER deno
 ADD . .
-RUN deno cache main.ts
-CMD ["run", "--allow-net", "--allow-read", "--allow-env", "main.ts"]
+RUN deno cache --unstable main.ts
+CMD ["run", "--allow-net", "--allow-read", "--allow-env", "--unstable", "main.ts"]
 

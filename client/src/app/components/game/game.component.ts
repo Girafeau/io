@@ -32,7 +32,7 @@ export class GameComponent implements AfterViewInit, OnInit {
   public ngAfterViewInit(): void {
     const width = 1000;
     const height = 500;
-    const url = 'ws://' + location.host;
+    const url = location.origin.replace(/^http/, 'ws');
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
