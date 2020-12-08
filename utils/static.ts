@@ -3,8 +3,9 @@ import {
     exists
 } from "https://deno.land/std@0.80.0/fs/mod.ts";
 const serveStatic = async (request: any, folder: string) => {
-    const root = '.';
+    const root = Deno.cwd();
     const path = `${root}/${folder}${request.url}`;
+    console.log(path);
     const f = `${root}/${folder}`;
     if(request.method === 'GET') {
         if(request.url === '/') {
