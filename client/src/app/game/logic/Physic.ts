@@ -1,0 +1,13 @@
+export default class Physic {
+
+  public static FRICTION = 0.9;
+  public static DELTA = 1;
+  public static WIND = {
+    FRICTION: 0,
+    V: {
+      X: 0,
+      Y: 0
+    }
+  };
+
+}
