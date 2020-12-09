@@ -59,9 +59,9 @@ export class Manager {
                 if (player) {
                     this.clients.forEach((value: any, socket: any) => {
                         if (value.room === room && value.id !== object.id) {
-                            socket.send(room + '@moved@' + JSON.stringify({id: player.id,
-                                x: player.x,
-                                y: player.y}));
+                            socket.send(room + '@moved@' + JSON.stringify({id: object.id,
+                                x: object.x,
+                                y: object.y}));
                         }
                     });
                 }
