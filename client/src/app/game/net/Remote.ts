@@ -71,6 +71,20 @@ export default class Remote {
         if (message === 'respawned') {
           this.game.updateEnemyState(object.id, false);
         }
+
+        if (message === 'taunted') {
+          this.game.updateEnemyTaunt(object.id, true);
+          if (object.id === this.game.self.id) {
+            this.game.self.taunt = true;
+          }
+        }
+
+        if (message === 'untaunted') {
+          this.game.updateEnemyTaunt(object.id, false);
+          if (object.id === this.game.self.id) {
+            this.game.self.taunt = false;
+          }
+        }
       }
     };
 

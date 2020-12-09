@@ -18,11 +18,11 @@ export class Manager {
         setInterval(() => {
             try {
                 this.clients.forEach((value: any, socket: any) => {
-                   try {
-                       this.ping(socket);
-                   } catch(e) {
-                       console.log(e);
-                   }
+                    try {
+                        this.ping(socket);
+                    } catch(e) {
+                        console.log(e);
+                    }
                 });
             } catch(e) {
                 console.log(e);
@@ -110,6 +110,20 @@ export class Manager {
                     }
                 });
             }
+        }
+        if (message === 'taunt') {
+            this.clients.forEach((value: any, socket: any) => {
+                if (value.room === room) {
+                    socket.send(room + '@taunted@' + JSON.stringify(object));
+                }
+            });
+        }
+        if (message === 'untaunt') {
+            this.clients.forEach((value: any, socket: any) => {
+                if (value.room === room) {
+                    socket.send(room + '@untaunted@' + JSON.stringify(object));
+                }
+            });
         }
     }
 

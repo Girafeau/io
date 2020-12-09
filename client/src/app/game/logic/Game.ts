@@ -84,4 +84,11 @@ export default class Game {
       enemy.dead = dead;
     }
   }
+
+  public updateEnemyTaunt(id: string, taunt: boolean): void {
+    const enemy: Player = this.enemies.find(e => e.id === id);
+    if (enemy) {
+      enemy.taunt = taunt;
+    }
+  }
 }

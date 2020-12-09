@@ -1,5 +1,6 @@
 import Key from './Key';
 import Game from '../logic/Game';
+import Remote from '../net/Remote';
 
 export default class Listener {
 
@@ -16,31 +17,39 @@ export default class Listener {
 
     addEventListener('keydown', (e) => {
       Key.KEYS[e.key] = true;
+      console.log(e.key);
+      if (e.key === ' ') {
+          this.game.self.tauntEnemies();
+      }
       e.preventDefault();
     });
 
     addEventListener('keyup',  (e) => {
       Key.KEYS[e.key] = false;
+      if (e.key === ' ') {
+        this.game.self.unTauntEnemies();
+      }
     });
 
     addEventListener('click',  (e) => {
       this.game.self.fire(e.offsetX, e.offsetY);
     });
 
+    /*
+    ------------------------
+    SCROLL : NOT IMPLEMENTED
+    ------------------------
     addEventListener('contextmenu',  (e) => {
       e.preventDefault();
     });
-
     addEventListener('mousedown',  (e) => {
       if (e.buttons === 2) {
         this.pressed = true;
       }
     });
-
     addEventListener('mouseup',  (e) => {
       this.pressed = false;
     });
-
     addEventListener('mousemove',  (e) => {
       if (this.x && this.y && this.pressed) {
         const xb = -(e.clientX - this.x);
@@ -51,5 +60,6 @@ export default class Listener {
       this.y = e.clientY;
       e.preventDefault();
     });
+     */
   }
 }

@@ -10,6 +10,7 @@ export default class Player {
   public width: number;
   public height: number;
   public dead: boolean;
+  public taunt: boolean;
   public refill: number;
   public refillMax: number;
 
@@ -24,6 +25,7 @@ export default class Player {
     this.dead = false;
     this.refill = 100;
     this.refillMax = 100;
+    this.taunt = false;
   }
 
   public setPosition(x, y): void {

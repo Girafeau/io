@@ -126,4 +126,20 @@ export default class Self extends Player {
       id: this.id
     });
   }
+
+  public tauntEnemies(): void {
+    if (!this.taunt) {
+      Remote.notify('taunt', {
+        id: this.id
+      });
+    }
+  }
+
+  public unTauntEnemies(): void {
+    if (this.taunt) {
+      Remote.notify('untaunt', {
+        id: this.id
+      });
+    }
+  }
 }
