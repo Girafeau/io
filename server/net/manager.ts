@@ -1,4 +1,4 @@
-import nanoid from "https://deno.land/x/nanoid/mod.ts"
+import { nanoid } from "https://deno.land/x/nanoid/mod.ts"
 import Game from "../logic/Game.ts";
 import Room from "../logic/Room.ts";
 import Player from "../logic/Player.ts";
@@ -31,6 +31,7 @@ export class Manager {
     handle(room: string, message: string, object: any, sock: any): void {
         if (message === 'connect') {
             let id = nanoid();
+            console.log(id);
             this.clients.set(sock, {
                 id: id,
                 room: room
