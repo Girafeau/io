@@ -30,7 +30,7 @@ export default class Self extends Player {
       x: super.x,
       y: super.y
     };
-    this.speed = 10;
+    this.speed = 50;
     this.respawnTime = 500;
     this.timer = 500;
   }
