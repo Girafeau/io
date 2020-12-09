@@ -1,26 +1,17 @@
 import { serveFile } from 'https://deno.land/std@0.80.0/http/file_server.ts';
-import {
-    exists
-} from "https://deno.land/std@0.80.0/fs/mod.ts";
-const serveStatic = async (request: any, folder: string) => {
-    const root = Deno.cwd();
-    const path = `${root}/${folder}${request.url}`;
-    console.log(path);
-    const f = `${root}/${folder}`;
-    if(request.method === 'GET') {
-        if(request.url === '/') {
-            const content = await serveFile(request, `${f}/index.html`);
-            request.respond(content);
-        } else {
-            if(await exists(path)) {
-                const content = await serveFile(request, `${path}`);
-                request.respond(content);
-            } else {
-                const content = await serveFile(request, `${f}/index.html`);
-                request.respond(content);
-            }
-        }
 
+const serveStatic = async (request: any, pub: string) => {
+    const root = Deno.cwd();
+    const path = `${root}/${pub}${request.url}`;
+    const folder = `${root}/${pub}`;
+    let file = `${folder}/index.html`;
+    try {
+        const read = await Deno.readFile(path);
+        const content = await serveFile(request, path);
+        request.respond(content);
+    } catch(error) {
+        const content = await serveFile(request, file);
+        request.respond(content);
     }
 }
 

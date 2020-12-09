@@ -37,7 +37,6 @@ export default class Remote {
       if (infos[2]) {
         object = JSON.parse(infos[2]);
       }
-      console.log(event);
       if (message === 'player') {
         this.game.addEnemy(object.id, object.name, object.color, object.x, object.y);
       }
