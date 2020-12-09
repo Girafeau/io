@@ -23,14 +23,14 @@ export default class Self extends Player {
   public constructor(id: string, name: string, color: string, x: number, y: number) {
     super(id, name, color, x, y);
     this.v = {
-      x: 5,
-      y: 5
+      x: 2,
+      y: 2
     };
     this.old = {
       x: super.x,
       y: super.y
     };
-    this.speed = 50;
+    this.speed = 5;
     this.respawnTime = 500;
     this.timer = 500;
   }

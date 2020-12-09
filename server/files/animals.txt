@@ -299,8 +299,6 @@ Spoonbill
 Squid
 Squirrel
 Starfish
-Star-nosed mole
-Steelhead trout
 Stingray
 Stoat
 Stork
@@ -330,12 +328,8 @@ Toucan
 Trout
 Tuna
 Turkey
-list
 Turtle
 Tyrannosaurus
-Urial
-Vampire bat
-Vampire squid
 Vicuna
 Viper
 Vole

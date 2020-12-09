@@ -22,7 +22,6 @@ export class GameComponent implements AfterViewInit, OnInit {
   private room: string;
 
   constructor(private route: ActivatedRoute) {
-
   }
 
   public ngOnInit(): void {
@@ -30,10 +29,10 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = 1000;
-    const height = 500;
+    const width = 3000;
+    const height = 3000;
     const url = location.origin.replace(/^http/, 'ws');
-    //const url = 'ws://localhost:3000';
+   // const url = 'ws://localhost:3000';
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
