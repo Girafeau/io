@@ -4,7 +4,7 @@ export default class Projectile {
 
   public x: number;
   public y: number;
-  private readonly angle: number;
+  readonly angle: number;
   private readonly speed: number;
   public width: number;
   public height: number;

@@ -101,7 +101,12 @@ export default class Self extends Player {
       }
       const projectile: Projectile = new Projectile(this.x, this.y, angle, this.id);
       this.refill = 0;
-      Remote.notify('fire', projectile);
+      Remote.notify('fire', {
+        x: projectile.x,
+        y: projectile.y,
+        angle: projectile.angle,
+        shooter: projectile.shooter,
+      });
     }
   }
 
