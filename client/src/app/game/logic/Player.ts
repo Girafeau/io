@@ -23,8 +23,8 @@ export default class Player {
     this.width = 15;
     this.height = 15;
     this.dead = false;
-    this.refill = 100;
-    this.refillMax = 100;
+    this.refill = 50;
+    this.refillMax = 50;
     this.taunt = false;
   }
 

@@ -29,9 +29,8 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = 3000;
-    const height = 3000;
-    scrollBy(0, 0);
+    const width = 1500;
+    const height = 700;
     const url = location.origin.replace(/^http/, 'ws');
     //const url = 'ws://localhost:3000';
     this.element.nativeElement.width = width;
@@ -41,8 +40,8 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.view = new View(this.game, canvas, width, height);
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);
+    this.logic.init();
     this.remote.connect(url, this.room, () => {
-      this.logic.init();
       this.logic.start();
     });
   }

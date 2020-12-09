@@ -27,7 +27,7 @@ export class Manager {
             } catch(e) {
                 console.log(e);
             }
-        }, 10000);
+        }, 15000);
     }
 
     disconnect(sock: any) {

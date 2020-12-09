@@ -16,7 +16,7 @@ export default class Game {
     this.listener = new Listener(this);
     this.projectiles = [];
     this.enemies = [];
-    this.setSelf('none', 'none', 'green', 0, 0);
+
   }
 
   public init(): void {
@@ -32,6 +32,7 @@ export default class Game {
     }
     if (this.self.timer <= 0 && this.self.dead) {
       this.self.dead = false;
+      this.self.setPosition(15, 15);
       this.self.timer = this.self.respawnTime;
       Remote.notify('respawn', {
         id: this.self.id

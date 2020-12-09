@@ -1,6 +1,4 @@
 Ash
-Avocado
-Azure
 Beige
 Black
 Blue
