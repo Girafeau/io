@@ -49,4 +49,8 @@ export default class View {
       this.canvas.fill();
     });
   }
+
+  public init(): void {
+
+  }
 }

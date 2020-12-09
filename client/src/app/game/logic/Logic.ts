@@ -20,6 +20,7 @@ export default class Logic {
 
   public init(): void {
     this.game.init();
+    this.view.init();
   }
 
   public start(): void {

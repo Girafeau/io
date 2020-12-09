@@ -24,17 +24,19 @@ export default class Listener {
     });
 
     addEventListener('click',  (e) => {
-      this.game.self.fire(e.layerX, e.layerY);
+      this.game.self.fire(e.offsetX, e.offsetY);
     });
 
     addEventListener('contextmenu',  (e) => {
       e.preventDefault();
     });
+
     addEventListener('mousedown',  (e) => {
       if (e.buttons === 2) {
         this.pressed = true;
       }
     });
+
     addEventListener('mouseup',  (e) => {
       this.pressed = false;
     });
