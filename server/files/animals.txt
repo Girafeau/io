@@ -351,7 +351,6 @@ Wombat
 Woodpecker
 Worm
 Wren
-Xerinae
 Yak
 Zebra
 Zebra finch

@@ -1,5 +1,4 @@
 import Key from './Key';
-import Self from '../logic/Self';
 import Game from '../logic/Game';
 
 export default class Listener {
@@ -25,27 +24,26 @@ export default class Listener {
     });
 
     addEventListener('click',  (e) => {
-      this.game.self.fire(e.clientX, e.clientY);
-    });
-
-    addEventListener('oncontextmenu',  (e) => {
-      return false;
+      this.game.self.fire(e.layerX, e.layerY);
     });
 
     addEventListener('contextmenu',  (e) => {
       e.preventDefault();
     });
     addEventListener('mousedown',  (e) => {
-      this.pressed = true;
+      if (e.buttons === 2) {
+        this.pressed = true;
+      }
     });
     addEventListener('mouseup',  (e) => {
       this.pressed = false;
     });
 
     addEventListener('mousemove',  (e) => {
-      console.log(e);
       if (this.x && this.y && this.pressed) {
-        scrollBy(e.clientX - this.x, e.clientY - this.y);
+        const xb = -(e.clientX - this.x);
+        const yb =  -(e.clientY - this.y);
+        scrollBy(xb, yb);
       }
       this.x = e.clientX;
       this.y = e.clientY;
