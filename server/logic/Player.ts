@@ -4,8 +4,8 @@ export default class Player {
     name: string;
     color: string;
     dead: boolean;
-    private x: number;
-    private y: number;
+    x: number;
+    y: number;
 
     constructor(id: string, name: string, color: string, x: number, y: number) {
         this.id = id;
