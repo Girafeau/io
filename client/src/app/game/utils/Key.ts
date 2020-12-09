@@ -6,9 +6,7 @@ export default class Key {
   public static KEY_RIGHT = 'd';
 
   public static KEYS = {};
-  public static ARROW_UP = 'ArrowUp';
-  public static ARROW_DOWN = 'ArrowDown';
-  public static ARROW_RIGHT = 'ArrowRight';
-  public static ARROW_LEFT = 'ArrowLeft';
+  public static KEY_UP_2 = 'w';
+  public static KEY_LEFT_2 = 'a';
 
 }

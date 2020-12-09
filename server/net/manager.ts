@@ -47,7 +47,6 @@ export class Manager {
     handle(room: string, message: string, object: any, sock: any): void {
         if (message === 'connect') {
             let id = nanoid(10);
-            console.log(id);
             this.clients.set(sock, {
                 id: id,
                 room: room
