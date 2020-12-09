@@ -1,6 +1,6 @@
-const ta = await Deno.readTextFile('./files/animals.txt');
-const tc = await Deno.readTextFile('./files/colors.txt');
-const th = await Deno.readTextFile('./files/hexs.txt');
+const ta = await Deno.readTextFile('./server/files/animals.txt');
+const tc = await Deno.readTextFile('./server/files/colors.txt');
+const th = await Deno.readTextFile('./server/files/hexs.txt');
 const animals = ta.split('\r\n');
 const colors = tc.split('\r\n');
 const hexs = th.split('\r\n');

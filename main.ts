@@ -7,8 +7,8 @@ import {
     acceptable
 } from "https://deno.land/std@0.79.0/ws/mod.ts";
 import "https://deno.land/x/dotenv/load.ts";
-import { Manager } from "./net/manager.ts";
-import serveStatic from './utils/static.ts';
+import { Manager } from "./server/net/manager.ts";
+import serveStatic from './server/utils/static.ts';
 
 const port = +Deno.env.toObject().PORT || 3000;
 const server = serve({ hostname: "0.0.0.0", port: port});
@@ -57,6 +57,6 @@ for await (const request of server) {
             await request.respond({ status: 400 });
         });
     } else {
-        serveStatic(request, 'client/dist');
+        serveStatic(request, 'dist');
     }
 }

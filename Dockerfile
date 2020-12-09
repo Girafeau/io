@@ -1,16 +1,16 @@
 FROM node:12.7-alpine AS build
 WORKDIR /app
-COPY ./client/package.json ./client/package-lock.json ./
+COPY client/package.json client/package-lock.json ./
 RUN npm install
-COPY ./client .
+COPY client .
 RUN npm run build
 
 
 FROM hayd/alpine-deno:1.5.2
 WORKDIR /app
-COPY --from=build /app/dist .
+COPY --from=build /app/dist ./dist
 USER deno
-ADD . .
+COPY server ./server
+COPY main.ts ./
 RUN deno cache --unstable main.ts
 CMD ["run", "--allow-net", "--allow-read", "--allow-env", "--unstable", "main.ts"]
-
