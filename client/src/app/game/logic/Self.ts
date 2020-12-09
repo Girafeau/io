@@ -36,23 +36,23 @@ export default class Self extends Player {
   }
 
   public move(): void {
-    if (Key.KEYS[Key.KEY_UP]) {
+    if (Key.KEYS[Key.KEY_UP] || Key.KEYS[Key.ARROW_UP]) {
       if (this.v.y > -this.speed) {
         this.v.y--;
       }
     }
 
-    if (Key.KEYS[Key.KEY_DOWN]) {
+    if (Key.KEYS[Key.KEY_DOWN] || Key.KEYS[Key.ARROW_DOWN]) {
       if (this.v.y < this.speed) {
         this.v.y++;
       }
     }
-    if (Key.KEYS[Key.KEY_RIGHT]) {
+    if (Key.KEYS[Key.KEY_RIGHT] || Key.KEYS[Key.ARROW_RIGHT]) {
       if (this.v.x < this.speed) {
         this.v.x++;
       }
     }
-    if (Key.KEYS[Key.KEY_LEFT]) {
+    if (Key.KEYS[Key.KEY_LEFT] || Key.KEYS[Key.ARROW_LEFT]) {
       if (this.v.x > -this.speed) {
         this.v.x--;
       }

@@ -33,6 +33,7 @@ export class GameComponent implements AfterViewInit, OnInit {
     const width = 1000;
     const height = 500;
     const url = location.origin.replace(/^http/, 'ws');
+    //const url = 'ws://localhost:3000';
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');

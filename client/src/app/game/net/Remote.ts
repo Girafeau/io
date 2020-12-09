@@ -16,6 +16,10 @@ export default class Remote {
     Remote.socket.send(Remote.room + '@' + message + '@' + JSON.stringify(object));
   }
 
+  public static ping(): void {
+    Remote.socket.send('3');
+  }
+
   public connect(url: string, room: string, handle): void {
     Remote.url = url;
     Remote.room = room;
@@ -31,38 +35,42 @@ export default class Remote {
       console.log('socket closed');
     };
     Remote.socket.onmessage = event => {
-      const infos: string [] = event.data.split('@');
-      const message: string = infos[1];
-      let object = null;
-      if (infos[2]) {
-        object = JSON.parse(infos[2]);
-      }
-      if (message === 'player') {
-        this.game.addEnemy(object.id, object.name, object.color, object.x, object.y);
-      }
-      if (message === 'self') {
-        this.game.setSelf(object.id, object.name, object.color, object.x, object.y);
-        handle();
-      }
-      if (message === 'enemies') {
-        object.forEach(enemy => {
-          this.game.addEnemy(enemy.id, enemy.name, enemy.color, enemy.x, enemy.y);
-        });
-      }
-      if (message === 'leaver') {
-        this.game.removeEnemy(object.id);
-      }
-      if (message === 'moved') {
-        this.game.updateEnemyPosition(object.id, object.x, object.y);
-      }
-      if (message === 'fired') {
-        this.game.addProjectile(object.x, object.y, object.angle, object.shooter);
-      }
-      if (message === 'died') {
-        this.game.updateEnemyState(object.id, true);
-      }
-      if (message === 'respawned') {
-        this.game.updateEnemyState(object.id, false);
+      if (event.data === '2') {
+        Remote.ping();
+      } else {
+        const infos: string [] = event.data.split('@');
+        const message: string = infos[1];
+        let object = null;
+        if (infos[2]) {
+          object = JSON.parse(infos[2]);
+        }
+        if (message === 'player') {
+          this.game.addEnemy(object.id, object.name, object.color, object.x, object.y);
+        }
+        if (message === 'self') {
+          this.game.setSelf(object.id, object.name, object.color, object.x, object.y);
+          handle();
+        }
+        if (message === 'enemies') {
+          object.forEach(enemy => {
+            this.game.addEnemy(enemy.id, enemy.name, enemy.color, enemy.x, enemy.y);
+          });
+        }
+        if (message === 'leaver') {
+          this.game.removeEnemy(object.id);
+        }
+        if (message === 'moved') {
+          this.game.updateEnemyPosition(object.id, object.x, object.y);
+        }
+        if (message === 'fired') {
+          this.game.addProjectile(object.x, object.y, object.angle, object.shooter);
+        }
+        if (message === 'died') {
+          this.game.updateEnemyState(object.id, true);
+        }
+        if (message === 'respawned') {
+          this.game.updateEnemyState(object.id, false);
+        }
       }
     };
 

@@ -26,6 +26,7 @@ const broadcast = (event: string, socket: WebSocket) => {
     manager.handle(room, message, object, socket);
 }
 
+manager.init();
 const handleWebSocket = async (socket: WebSocket) => {
     try {
         for await (const event of socket) {

@@ -14,6 +14,22 @@ export class Manager {
         this.clients = new Map<any, any>();
     }
 
+    init() {
+        setInterval(() => {
+            try {
+                this.clients.forEach((value: any, socket: any) => {
+                   try {
+                       this.ping(socket);
+                   } catch(e) {
+                       console.log(e);
+                   }
+                });
+            } catch(e) {
+                console.log(e);
+            }
+        }, 10000);
+    }
+
     disconnect(sock: any) {
         const values = this.clients.get(sock);
         let room = this.game.findRoom(values.room);
@@ -30,7 +46,7 @@ export class Manager {
 
     handle(room: string, message: string, object: any, sock: any): void {
         if (message === 'connect') {
-            let id = nanoid();
+            let id = nanoid(10);
             console.log(id);
             this.clients.set(sock, {
                 id: id,
@@ -47,7 +63,6 @@ export class Manager {
             existence.addPlayer(player);
             this.clients.forEach((value: any, socket: any) => {
                 if(value.room === room && value.id !== id) {
-
                     socket.send(room + '@player@' + JSON.stringify(player));
                 }
             });
@@ -97,5 +112,9 @@ export class Manager {
                 });
             }
         }
+    }
+
+    private ping(sock: any) {
+        sock.send("2");
     }
 }
