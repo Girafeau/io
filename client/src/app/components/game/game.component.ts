@@ -29,15 +29,15 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = 1500;
-    const height = 700;
-    const url = location.origin.replace(/^http/, 'ws');
-    //const url = 'ws://localhost:3000';
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    //const url = location.origin.replace(/^http/, 'ws');
+    const url = 'ws://localhost:3000';
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
     this.game = new Game();
-    this.view = new View(this.game, canvas, width, height);
+    this.view = new View(this.game, canvas, width, height, this.element.nativeElement);
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);
     this.logic.init();
