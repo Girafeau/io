@@ -100,17 +100,17 @@ export default class View {
   //  this.canvas.arc(this.game.self.x, this.game.self.y, this.game.self.width, 0, Math.PI * 2);
    // this.canvas.fill();
     this.canvas.fillStyle = 'grey';
-    this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 20, 30, 5);
+    this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 25, 30, 5);
     this.canvas.fillStyle = 'red';
-    this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 20, this.game.self.refill * 30 / this.game.self.refillMax, 5);
+    this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 25, this.game.self.refill * 30 / this.game.self.refillMax, 5);
     this.canvas.beginPath();
     this.canvas.fillStyle = 'white';
     if (this.game.self.taunt) {
       this.canvas.fillText(' ̿ ̿̿\'̿̿\\̵͇̿̿\\=(•̪●)=/̵͇̿̿/\'̿̿ ̿ ̿', this.game.self.x - 50, this.game.self.y - 80, 100);
     }
 
-    this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 15, this.game.self.y - 40, 30);
-    this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 15, this.game.self.y - 20, 30);
+    this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 15, this.game.self.y - 45, 30);
+    this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 15, this.game.self.y - 25, 30);
     this.canvas.fillText(`${this.game.self.name}`, this.game.self.x - 50, this.game.self.y  + 50, 100);
 
   }
@@ -134,7 +134,7 @@ export default class View {
       this.canvas.lineTo(enemy.x, enemy.y - enemy.width);
       this.canvas.fill();
       this.canvas.fillStyle = 'white';
-      this.canvas.fillText(`${enemy.name}`, enemy.x - 50, enemy.y  + 35, 100);
+      this.canvas.fillText(`${enemy.name}`, enemy.x - 50, enemy.y  + 40, 100);
     });
   }
 

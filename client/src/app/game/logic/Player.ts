@@ -21,8 +21,8 @@ export default class Player {
     this.color = color;
     this.x = x;
     this.y = y;
-    this.width = 15;
-    this.height = 15;
+    this.width = 20;
+    this.height = 20;
     this.dead = false;
     this.refill = 50;
     this.refillMax = 50;
