@@ -19,9 +19,10 @@ export default class Self extends Player {
   public readonly speed: number;
   public respawnTime: number;
   public timer: number;
+  private angle: number;
 
-  public constructor(id: string, name: string, color: string, x: number, y: number) {
-    super(id, name, color, x, y);
+  public constructor(id: string, name: string, color: string, x: number, y: number, score: number) {
+    super(id, name, color, x, y, score);
     this.v = {
       x: 2,
       y: 2
@@ -33,6 +34,17 @@ export default class Self extends Player {
     this.speed = 5;
     this.respawnTime = 500;
     this.timer = 500;
+    this.angle = 90;
+  }
+
+  public rotate(x: number, y: number, angle: number): { y1: number; x1: number } {
+    let diffX, diffY, x1, y1;
+    angle *= Math.PI / 180;
+    diffX = x - this.x;
+    diffY = y - this.y;
+    x1 = diffX * Math.cos(angle) + diffY * Math.sin(angle) + this.x;
+    y1 = diffX * Math.sin(angle) + diffY * Math.cos(angle) + this.y;
+    return ({x1, y1});
   }
 
   public move(): void {
@@ -120,10 +132,11 @@ export default class Self extends Player {
       projectile.height + projectile.y > this.y) || (d1 >= d2 - this.width && d1 <= d2 + this.width)) && projectile.shooter !== this.id;
   }
 
-  public kill(): void {
+  public kill(shooter: string): void {
     this.dead = true;
     Remote.notify('die', {
-      id: this.id
+      id: this.id,
+      shooter
     });
   }
 

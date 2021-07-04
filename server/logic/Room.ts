@@ -10,6 +10,13 @@ export default class Room {
         this.players = [];
     }
 
+    updateScore(shooter: string) {
+        const player = this.players.find(player => player.id !== shooter);
+        if (player) {
+            player.score += 1;
+        }
+    }
+
     addPlayer(player: Player) {
         this.players.push(player);
     }

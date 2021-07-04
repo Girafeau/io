@@ -13,8 +13,9 @@ export default class Player {
   public taunt: boolean;
   public refill: number;
   public refillMax: number;
+  public score: number;
 
-  public constructor(id: string, name: string, color: string, x: number, y: number) {
+  public constructor(id: string, name: string, color: string, x: number, y: number, score: number) {
     this.id = id;
     this.name = name;
     this.color = color;
@@ -26,6 +27,7 @@ export default class Player {
     this.refill = 50;
     this.refillMax = 50;
     this.taunt = false;
+    this.score = score;
   }
 
   public setPosition(x, y): void {

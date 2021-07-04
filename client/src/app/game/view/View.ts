@@ -31,7 +31,7 @@ export default class View {
     this.self();
     this.enemies();
     this.projectiles();
-
+    this.score();
   }
 
   private moveStars(): void {
@@ -77,10 +77,11 @@ export default class View {
     this.canvas.fillStyle = this.game.self.color;
     if (this.game.self.dead) {
       this.canvas.font = '60px ' + View.FONT;
-      this.canvas.fillStyle = 'black';
+      this.canvas.fillStyle = 'white';
       this.canvas.fillText('YOU\'RE DEAD', 200, 200);
       this.canvas.fillText('Respawn in :', 200, 300);
       this.canvas.fillText(String(this.game.self.timer), 200, 400);
+      this.canvas.font = '20px ' + View.FONT;
     }
 
 
@@ -107,10 +108,11 @@ export default class View {
     if (this.game.self.taunt) {
       this.canvas.fillText(' ̿ ̿̿\'̿̿\\̵͇̿̿\\=(•̪●)=/̵͇̿̿/\'̿̿ ̿ ̿', this.game.self.x - 50, this.game.self.y - 80, 100);
     }
-    this.canvas.font = '20px ' + View.FONT;
+
     this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 15, this.game.self.y - 40, 30);
     this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 15, this.game.self.y - 20, 30);
     this.canvas.fillText(`${this.game.self.name}`, this.game.self.x - 50, this.game.self.y  + 50, 100);
+
   }
 
   public enemies(): void {
@@ -118,16 +120,30 @@ export default class View {
       this.canvas.fillStyle = enemy.color;
       this.canvas.beginPath();
       if (enemy.taunt) {
-        this.canvas.fillStyle = 'black';
+        this.canvas.fillStyle = 'white';
         this.canvas.fillText(' ̿ ̿̿\'̿̿\\̵͇̿̿\\=(•̪●)=/̵͇̿̿/\'̿̿ ̿ ̿ ', enemy.x - 50, enemy.y - 40, 100);
       }
       if (enemy.dead) {
         this.canvas.fillStyle = 'black';
       }
-      this.canvas.arc(enemy.x, enemy.y, enemy.width, 0, Math.PI * 2);
+     // this.canvas.arc(enemy.x, enemy.y, enemy.width, 0, Math.PI * 2);
+
+
+      this.canvas.moveTo(enemy.x - enemy.width, enemy.y + enemy.width);
+      this.canvas.lineTo(enemy.x + enemy.width, enemy.y + enemy.width);
+      this.canvas.lineTo(enemy.x, enemy.y - enemy.width);
       this.canvas.fill();
-      this.canvas.fillStyle = 'black';
+      this.canvas.fillStyle = 'white';
       this.canvas.fillText(`${enemy.name}`, enemy.x - 50, enemy.y  + 35, 100);
+    });
+  }
+
+  public score(): void {
+    this.canvas.font = '20px ' + View.FONT;
+    this.canvas.fillStyle = 'white';
+    this.canvas.fillText(`you : ${this.game.self.score}`, 200, 50, 100);
+    this.game.enemies.forEach((e, i) => {
+      this.canvas.fillText(`${e.name} : ${e.score}`, 200, 80 + i * 30, 100);
     });
   }
 
@@ -150,6 +166,7 @@ export default class View {
 
 
   public init(): void {
+    this.canvas.font = '20px ' + View.FONT;
     this.stars = [];
     for (let i = 0; i < this.numStars; i++){
       const star = {

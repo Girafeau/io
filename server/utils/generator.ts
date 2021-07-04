@@ -6,8 +6,8 @@ const colors = tc.split('\n');
 const hexs = th.split('\n');
 
 const name = (): string => {
-    const na = Math.floor(Math.random() * Math.floor(animals.length));
-    const nc = Math.floor(Math.random() * Math.floor(colors.length));
+    const na = Math.floor(Math.random() * Math.floor(animals.length-1));
+    const nc = Math.floor(Math.random() * Math.floor(colors.length-1));
     return colors[nc] + ' ' + animals[na];
 }
 

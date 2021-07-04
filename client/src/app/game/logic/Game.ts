@@ -49,17 +49,19 @@ export default class Game {
         object.splice(index, 1);
       }
       if (this.self.hit(projectile)) {
-        this.self.kill();
+        if (!this.self.dead) {
+          this.self.kill(projectile.shooter);
+        }
       }
     });
   }
 
-  public setSelf(id: string, name: string, color: string, x: number, y: number): void {
-    this.self = new Self(id, name, color, x , y);
+  public setSelf(id: string, name: string, color: string, x: number, y: number, score: number): void {
+    this.self = new Self(id, name, color, x , y, score);
   }
 
-  public addEnemy(id: string, name: string, color: string, x: number, y: number): void {
-    const player: Player = new Player(id, name, color, x, y);
+  public addEnemy(id: string, name: string, color: string, x: number, y: number, score: number): void {
+    const player: Player = new Player(id, name, color, x, y, score);
     this.enemies.push(player);
   }
 
@@ -90,6 +92,13 @@ export default class Game {
     const enemy: Player = this.enemies.find(e => e.id === id);
     if (enemy) {
       enemy.taunt = taunt;
+    }
+  }
+
+  public updateEnemyScore(shooter: string): void {
+    const enemy: Player = this.enemies.find(e => e.id === shooter);
+    if (enemy) {
+      enemy.score += 1;
     }
   }
 }

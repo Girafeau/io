@@ -45,15 +45,15 @@ export default class Remote {
           object = JSON.parse(infos[2]);
         }
         if (message === 'player') {
-          this.game.addEnemy(object.id, object.name, object.color, object.x, object.y);
+          this.game.addEnemy(object.id, object.name, object.color, object.x, object.y, object.score);
         }
         if (message === 'self') {
-          this.game.setSelf(object.id, object.name, object.color, object.x, object.y);
+          this.game.setSelf(object.id, object.name, object.color, object.x, object.y, object.score);
           handle();
         }
         if (message === 'enemies') {
           object.forEach(enemy => {
-            this.game.addEnemy(enemy.id, enemy.name, enemy.color, enemy.x, enemy.y);
+            this.game.addEnemy(enemy.id, enemy.name, enemy.color, enemy.x, enemy.y, enemy.score);
           });
         }
         if (message === 'leaver') {
@@ -70,6 +70,15 @@ export default class Remote {
         }
         if (message === 'respawned') {
           this.game.updateEnemyState(object.id, false);
+        }
+        if (message === 'score') {
+          console.log(object);
+         if (object.shooter === this.game.self.id) {
+            this.game.self.score += 1;
+         }
+         else {
+           this.game.updateEnemyScore(object.shooter);
+         }
         }
 
         if (message === 'taunted') {

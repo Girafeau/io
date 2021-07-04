@@ -93,9 +93,11 @@ export class Manager {
             let existence = this.game.findRoom(room);
             if(existence) {
                 existence.updatePlayerState(object.id, true);
+                existence.updateScore(object.shooter);
                 this.clients.forEach((value: any, socket: any) => {
                     if (value.room === room) {
                         socket.send(room + '@died@' + JSON.stringify(object));
+                        socket.send(room + '@score@' + JSON.stringify(object));
                     }
                 });
             }
