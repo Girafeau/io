@@ -11,7 +11,7 @@ export default class Room {
     }
 
     updateScore(shooter: string) {
-        const player = this.players.find(player => player.id !== shooter);
+        const player = this.players.find(player => player.id === shooter);
         if (player) {
             player.score += 1;
         }
