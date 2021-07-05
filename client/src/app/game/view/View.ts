@@ -14,13 +14,14 @@ export default class View {
   }
 
   private element;
-  public static FONT = 'Open Sans';
+  public static FONT = 'Ubuntu';
   public static HEIGHT;
   public static WIDTH;
   private readonly numStars: number;
   private game: Game;
   private canvas;
   private stars;
+  private scores;
   private readonly radius: string;
 
 
@@ -53,16 +54,13 @@ export default class View {
     this.canvas.fillStyle = 'rgba(209, 255, 255, ' + this.radius + ')';
     for (let i = 0; i < this.numStars; i++) {
       const star = this.stars[i];
-
       pixelX = (star.x - View.WIDTH / 2) * (View.WIDTH * 2 / star.z);
       pixelX += View.WIDTH / 2;
       pixelY = (star.y - View.HEIGHT / 2) * (View.WIDTH * 2 / star.z);
       pixelY += View.HEIGHT / 2;
       pixelRadius = (View.WIDTH * 2 / star.z);
-
       this.canvas.fillRect(pixelX, pixelY, pixelRadius, pixelRadius);
       this.canvas.fillStyle = 'rgba(209, 255, 255, ' + star.o + ')';
-      // c.fill();
     }
   }
 
@@ -78,27 +76,19 @@ export default class View {
     if (this.game.self.dead) {
       this.canvas.font = '60px ' + View.FONT;
       this.canvas.fillStyle = 'white';
-      this.canvas.fillText('YOU\'RE DEAD', 200, 200);
-      this.canvas.fillText('Respawn in :', 200, 300);
-      this.canvas.fillText(String(this.game.self.timer), 200, 400);
+      this.canvas.fillText('You\'ve been destroyed.', 200, 300);
+      this.canvas.fillText('Repair in :', 200, 400);
+      this.canvas.fillText(String(this.game.self.timer), 200, 500);
       this.canvas.font = '20px ' + View.FONT;
     }
-
-
     this.canvas.beginPath();
-    //this.canvas.setTransform(1, 0, 0, 1, this.game.self.x, this.game.self.y);
-    //this.canvas.rotate(Math.atan2(this.mouseX, this.mouseY));
     this.canvas.moveTo(this.game.self.x - this.game.self.width, this.game.self.y + this.game.self.width);
     this.canvas.lineTo(this.game.self.x + this.game.self.width, this.game.self.y + this.game.self.width);
     this.canvas.lineTo(this.game.self.x, this.game.self.y - this.game.self.width);
-   // this.canvas.setTransform(1, 0, 0, 1, 0, 0);
     this.canvas.closePath();
 
     this.canvas.fillStyle = 'white';
     this.canvas.fill();
-
-  //  this.canvas.arc(this.game.self.x, this.game.self.y, this.game.self.width, 0, Math.PI * 2);
-   // this.canvas.fill();
     this.canvas.fillStyle = 'grey';
     this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 25, 30, 5);
     this.canvas.fillStyle = 'red';
@@ -106,44 +96,66 @@ export default class View {
     this.canvas.beginPath();
     this.canvas.fillStyle = 'white';
     if (this.game.self.taunt) {
-      this.canvas.fillText(' ̿ ̿̿\'̿̿\\̵͇̿̿\\=(•̪●)=/̵͇̿̿/\'̿̿ ̿ ̿', this.game.self.x - 50, this.game.self.y - 80, 100);
+      this.canvas.fillStyle = 'red';
+      this.canvas.font = '15px ' + View.FONT;
+      this.canvas.fillText('<3', this.game.self.x - 10, this.game.self.y - 80);
+      this.canvas.font = '20px ' + View.FONT;
     }
-
-    this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 15, this.game.self.y - 45, 30);
-    this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 15, this.game.self.y - 25, 30);
-    this.canvas.fillText(`${this.game.self.name}`, this.game.self.x - 50, this.game.self.y  + 50, 100);
-
+    this.canvas.font = '15px ' + View.FONT;
+    this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 20, this.game.self.y - 45);
+    this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 20, this.game.self.y - 25);
+    this.canvas.fillText(`${this.game.self.name}`, this.game.self.x - 45, this.game.self.y  + 50);
+    this.canvas.font = '20px ' + View.FONT;
   }
 
   public enemies(): void {
     this.game.enemies.forEach(enemy => {
       this.canvas.fillStyle = enemy.color;
       this.canvas.beginPath();
-      if (enemy.taunt) {
-        this.canvas.fillStyle = 'white';
-        this.canvas.fillText(' ̿ ̿̿\'̿̿\\̵͇̿̿\\=(•̪●)=/̵͇̿̿/\'̿̿ ̿ ̿ ', enemy.x - 50, enemy.y - 40, 100);
-      }
-      if (enemy.dead) {
-        this.canvas.fillStyle = 'black';
-      }
-     // this.canvas.arc(enemy.x, enemy.y, enemy.width, 0, Math.PI * 2);
-
-
       this.canvas.moveTo(enemy.x - enemy.width, enemy.y + enemy.width);
       this.canvas.lineTo(enemy.x + enemy.width, enemy.y + enemy.width);
       this.canvas.lineTo(enemy.x, enemy.y - enemy.width);
       this.canvas.fill();
       this.canvas.fillStyle = 'white';
-      this.canvas.fillText(`${enemy.name}`, enemy.x - 50, enemy.y  + 40, 100);
+
+      if (enemy.taunt) {
+        this.canvas.fillStyle = 'red';
+        this.canvas.font = '15px ' + View.FONT;
+        this.canvas.fillText('<3', enemy.x - 10, enemy.y - 40);
+        this.canvas.font = '20px ' + View.FONT;
+      }
+      if (enemy.dead) {
+        this.canvas.font = '15px ' + View.FONT;
+        this.canvas.fillStyle = 'red';
+        this.canvas.fillText('Destroyed', enemy.x - 35, enemy.y - 30);
+        this.canvas.font = '20px ' + View.FONT;
+      }
+
+      this.canvas.font = '15px ' + View.FONT;
+      this.canvas.fillText(`${enemy.name}`, enemy.x - 45, enemy.y  + 40);
+      this.canvas.font = '20px ' + View.FONT;
+
+
     });
   }
 
-  public score(): void {
+  public score(): void  {
     this.canvas.font = '20px ' + View.FONT;
     this.canvas.fillStyle = 'white';
-    this.canvas.fillText(`you : ${this.game.self.score}`, 200, 50, 100);
-    this.game.enemies.forEach((e, i) => {
-      this.canvas.fillText(`${e.name} : ${e.score}`, 200, 80 + i * 30, 100);
+    this.canvas.fillText(`You have ${this.game.self.score} point(s).`, 200, 50);
+    this.canvas.fillText(`Scores : `, 500, 50);
+    this.scores = this.game.enemies.map(e => {
+      return {
+        name: e.name,
+        score: e.score
+      };
+    });
+    this.scores.push({
+      name: this.game.self.name,
+      score: this.game.self.score
+    });
+    this.scores.sort((a, b) => b.score - a.score).forEach((e, i) => {
+      this.canvas.fillText(`${i + 1}. ${e.name} : ${e.score}`, 500, 80 + i * 30);
     });
   }
 
