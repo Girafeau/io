@@ -57,7 +57,7 @@ export default class View {
       pixelX += View.WIDTH / 2;
       pixelY = (star.y - View.HEIGHT / 2) * (View.WIDTH * 2 / star.z);
       pixelY += View.HEIGHT / 2;
-      pixelRadius = (View.WIDTH * 2 / star.z);
+      pixelRadius = (View.WIDTH * 2 / star.z) / 2;
       this.canvas.fillRect(pixelX, pixelY, pixelRadius, pixelRadius);
       this.canvas.fillStyle = 'rgba(209, 255, 255, ' + star.o + ')';
     }
@@ -123,8 +123,10 @@ export default class View {
   public drawScore(): void  {
     this.canvas.font = '20px ' + View.FONT;
     this.canvas.fillStyle = 'white';
-    this.canvas.fillText(`You have ${this.game.self.score} point(s).`, 200, 50);
-    this.canvas.fillText(`Scores : `, 500, 50);
+    this.canvas.fillText(`You have ${this.game.self.score} point(s).`, 200, 70);
+    // this.canvas.strokeStyle = 'red';
+    // this.canvas.strokeRect(175, 25, 250, 80);
+    this.canvas.fillText(`Scores : `, 500, 70);
     this.scores = this.game.enemies.map(e => {
       return {
         name: e.name,
@@ -136,25 +138,29 @@ export default class View {
       score: this.game.self.score
     });
     this.scores.sort((a, b) => b.score - a.score).forEach((e, i) => {
-      this.canvas.fillText(`${i + 1}. ${e.name} : ${e.score}`, 500, 80 + i * 30);
+      this.canvas.fillText(`${i + 1}. ${e.name} : ${e.score}`, 500, 100 + i * 30);
     });
+    this.canvas.lineWidth = 2;
+    this.canvas.strokeStyle = 'red';
+    this.canvas.strokeRect(475, 25, 300, (this.scores.length + 1) * 30 + 50);
   }
 
   public drawProjectiles(): void {
     this.canvas.fillStyle = 'red';
     this.game.projectiles.forEach(projectile => {
-      this.canvas.beginPath();
-      this.canvas.arc(projectile.x, projectile.y, projectile.width, 0, Math.PI * 2);
-      this.canvas.closePath();
-      this.canvas.fill();
+
       /*
-            this.canvas.lineCap = 'round';
-            this.canvas.lineWidth = 4;
-            this.canvas.setLineDash([5, 20]);
-            this.canvas.lineTo(projectile.old.x, projectile.old.y);
-            this.canvas.lineTo(projectile.x, projectile.y);
-            this.canvas.stroke();
-      */
+       this.canvas.arc(projectile.x, projectile.y, projectile.width, 0, Math.PI * 2);
+       this.canvas.closePath();
+       this.canvas.fill();
+       */
+      this.canvas.beginPath();
+      this.canvas.lineCap = 'round';
+      this.canvas.lineWidth = 4;
+      this.canvas.lineTo(projectile.old.x, projectile.old.y);
+      this.canvas.lineTo(projectile.x, projectile.y);
+      this.canvas.stroke();
+      this.canvas.closePath();
     });
   }
 

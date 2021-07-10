@@ -4,7 +4,6 @@ import Game from '../../game/logic/Game';
 import View from '../../game/view/View';
 import Remote from '../../game/net/Remote';
 import {ActivatedRoute} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -43,6 +42,8 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.logic.init();
     this.remote.connect(url, this.room, () => {
       this.logic.start();
+    }, () => {
+      console.log("error");
     });
   }
 }

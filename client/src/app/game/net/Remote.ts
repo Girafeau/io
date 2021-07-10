@@ -20,12 +20,12 @@ export default class Remote {
     Remote.socket.send('3');
   }
 
-  public connect(url: string, room: string, handle): void {
+  public connect(url: string, room: string, handle, err): void {
     Remote.url = url;
     Remote.room = room;
     Remote.socket = new WebSocket(url);
     Remote.socket.onerror = error => {
-      console.error(error);
+      err();
     };
     Remote.socket.onopen = event => {
       console.log('socket opened');
