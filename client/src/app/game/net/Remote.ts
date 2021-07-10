@@ -72,7 +72,6 @@ export default class Remote {
           this.game.updateEnemyState(object.id, false);
         }
         if (message === 'score') {
-          console.log(object);
          if (object.shooter === this.game.self.id) {
             this.game.self.score += 1;
          }

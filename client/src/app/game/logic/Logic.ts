@@ -4,15 +4,18 @@ import View from '../view/View';
 export default class Logic {
 
   private static FPS = 60;
-  private delta: number;
-  private last: number;
-  private now: number;
   private game: Game;
   private view: View;
+  private stop: boolean;
+  private readonly interval: number;
+  private delta: number;
+  private then: number;
+  private now: number;
 
   public constructor(game: Game, view: View) {
+    this.stop = false;
+    this.interval = 1000 / 60;
     this.delta = 0;
-    this.last = Date.now();
     this.now = Date.now();
     this.game = game;
     this.view = view;
@@ -24,6 +27,7 @@ export default class Logic {
   }
 
   public start(): void {
+    this.then = Date.now();
     this.render();
   }
 
@@ -33,16 +37,21 @@ export default class Logic {
 
   public render(): void {
     requestAnimationFrame(this.render.bind(this));
-    this.view.render();
     this.now = Date.now();
-    this.delta = this.delta + this.now - this.last;
-    this.update();
-    this.delta =  this.delta - 1 / Logic.FPS;
-    this.last = this.now;
+    this.delta = this.now - this.then;
+    if (this.delta > this.interval && !this.stop) {
+      this.then = this.now - (this.delta % this.interval);
+      this.view.render();
+      this.update();
+    }
   }
 
-  public stop(): void {
+  public pause(): void {
+    this.stop = true;
+  }
 
+  public unpause(): void {
+    this.stop = false;
   }
 
 }

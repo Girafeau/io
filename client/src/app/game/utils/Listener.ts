@@ -17,7 +17,6 @@ export default class Listener {
 
     addEventListener('keydown', (e) => {
       Key.KEYS[e.key] = true;
-      console.log(e.key);
       if (e.key === ' ') {
           this.game.self.tauntEnemies();
       }
