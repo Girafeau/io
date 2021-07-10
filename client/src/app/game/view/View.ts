@@ -1,5 +1,4 @@
 import Game from '../logic/Game';
-import {parseGIF, decompressFrames} from 'gifuct-js';
 
 export default class View {
 
