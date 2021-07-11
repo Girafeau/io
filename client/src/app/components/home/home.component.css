@@ -1,0 +1,38 @@
+.primary.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(25, 27, 31);
+  border-radius: 15px;
+  height: 4em;
+  max-width: 15em;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 2em;
+}
+
+.title {
+  font-weight: normal;
+  color: white;
+  margin-bottom: 1em;
+  font-size: 3em;
+}
+
+.subtitle {
+  font-weight: normal;
+  color: white;
+  margin-bottom: 2em;
+  font-size: 1.5em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 5em;
+}
+
+img {
+  width: 600px;
+  height: 350px;
+  border-radius: 15px;
+}

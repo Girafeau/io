@@ -20,6 +20,12 @@ export default class Remote {
     Remote.socket.send('3');
   }
 
+  public on(message: string, selection: string, handler: () => void): void {
+    if (message === selection) {
+      handler();
+    }
+  }
+
   public connect(url: string, room: string, handle, err): void {
     Remote.url = url;
     Remote.room = room;
@@ -44,55 +50,66 @@ export default class Remote {
         if (infos[2]) {
           object = JSON.parse(infos[2]);
         }
-        if (message === 'player') {
+
+        this.on(message, 'player', () => {
           this.game.addEnemy(object.id, object.name, object.color, object.x, object.y, object.score);
-        }
-        if (message === 'self') {
+        });
+
+        this.on(message, 'self', () => {
           this.game.setSelf(object.id, object.name, object.color, object.x, object.y, object.score);
           handle();
-        }
-        if (message === 'enemies') {
+        });
+
+        this.on(message, 'enemies', () => {
           object.forEach(enemy => {
             this.game.addEnemy(enemy.id, enemy.name, enemy.color, enemy.x, enemy.y, enemy.score);
           });
-        }
-        if (message === 'leaver') {
-          this.game.removeEnemy(object.id);
-        }
-        if (message === 'moved') {
-          this.game.updateEnemyPosition(object.id, object.x, object.y);
-        }
-        if (message === 'fired') {
-          this.game.addProjectile(object.x, object.y, object.angle, object.shooter);
-        }
-        if (message === 'died') {
-          this.game.updateEnemyState(object.id, true);
-        }
-        if (message === 'respawned') {
-          this.game.updateEnemyState(object.id, false);
-        }
-        if (message === 'score') {
-         if (object.shooter === this.game.self.id) {
-            this.game.self.score += 1;
-         }
-         else {
-           this.game.updateEnemyScore(object.shooter);
-         }
-        }
+        });
 
-        if (message === 'taunted') {
-          this.game.updateEnemyTaunt(object.id, true);
+        this.on(message, 'moved', () => {
+          this.game.updateEnemyPosition(object.id, object.x, object.y);
+        });
+
+        this.on(message, 'fired', () => {
+          this.game.addProjectile(object.x, object.y, object.angle, object.shooter);
+        });
+
+        this.on(message, 'died', () => {
+          this.game.updateEnemyState(object.id, true);
+        });
+
+        this.on(message, 'respawned', () => {
+          this.game.updateEnemyState(object.id, false);
+        });
+
+        this.on(message, 'score', () => {
+          if (object.shooter === this.game.self.id) {
+            this.game.self.score += 1;
+          }
+          else {
+            this.game.updateEnemyScore(object.shooter);
+          }
+        });
+
+        this.on(message, 'taunted', () => {
           if (object.id === this.game.self.id) {
             this.game.self.taunt = true;
+          } else {
+            this.game.updateEnemyTaunt(object.id, true);
           }
-        }
+        });
 
-        if (message === 'untaunted') {
-          this.game.updateEnemyTaunt(object.id, false);
+        this.on(message, 'untaunted', () => {
           if (object.id === this.game.self.id) {
             this.game.self.taunt = false;
+          } else {
+            this.game.updateEnemyTaunt(object.id, false);
           }
-        }
+        });
+
+        this.on(message, 'leaver', () => {
+          this.game.removeEnemy(object.id);
+        });
       }
     };
 

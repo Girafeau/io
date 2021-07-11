@@ -44,8 +44,15 @@ export class Manager {
         }
     }
 
+    on(message: string, selection: string, handler: () => void): void {
+        if(message === selection) {
+            handler();
+        }
+    }
+
     handle(room: string, message: string, object: any, sock: any): void {
-        if (message === 'connect') {
+
+        this.on(message, 'connect', () => {
             let id = nanoid(10);
             this.clients.set(sock, {
                 id: id,
@@ -53,7 +60,7 @@ export class Manager {
             });
             let existence = this.game.findRoom(room);
             const player = new Player(id, name(), color(), 0, 0);
-            if(existence) {
+            if (existence) {
                 sock.send(room + '@enemies@' + JSON.stringify(existence.players));
             } else {
                 existence = new Room(room);
@@ -66,8 +73,9 @@ export class Manager {
                 }
             });
             sock.send(room + '@self@' + JSON.stringify(player));
-        }
-        if (message === 'move') {
+        });
+
+        this.on(message, 'move', () => {
             let existence = this.game.findRoom(room);
             if(existence) {
                 let player = existence.updatePlayerPosition(object.id, object.x, object.y);
@@ -81,15 +89,17 @@ export class Manager {
                     });
                 }
             }
-        }
-        if (message === 'fire') {
+        });
+
+        this.on(message, 'fire', () => {
             this.clients.forEach((value: any, socket: any) => {
                 if (value.room === room) {
                     socket.send(room + '@fired@' + JSON.stringify(object));
                 }
             });
-        }
-        if (message === 'die') {
+        });
+
+        this.on(message, 'die', () => {
             let existence = this.game.findRoom(room);
             if(existence) {
                 existence.updatePlayerState(object.id, true);
@@ -101,8 +111,9 @@ export class Manager {
                     }
                 });
             }
-        }
-        if (message === 'respawn') {
+        });
+
+        this.on(message, 'respawn', () => {
             let existence = this.game.findRoom(room);
             if(existence) {
                 existence.updatePlayerState(object.id, true);
@@ -112,24 +123,26 @@ export class Manager {
                     }
                 });
             }
-        }
-        if (message === 'taunt') {
+        });
+
+        this.on(message, 'taunt', () => {
             this.clients.forEach((value: any, socket: any) => {
                 if (value.room === room) {
                     socket.send(room + '@taunted@' + JSON.stringify(object));
                 }
             });
-        }
-        if (message === 'untaunt') {
+        });
+
+        this.on(message, 'untaunt', () => {
             this.clients.forEach((value: any, socket: any) => {
                 if (value.room === room) {
                     socket.send(room + '@untaunted@' + JSON.stringify(object));
                 }
             });
-        }
+        });
     }
 
     private ping(sock: any) {
-        sock.send("2");
+        sock.send('2');
     }
 }

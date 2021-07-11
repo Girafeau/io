@@ -1,13 +1,16 @@
 import Player from "./Player.ts";
+import Mob from './Mob.ts';
 
 export default class Room {
 
     id: string;
     players: Player [];
+    mobs: Mob [];
 
     constructor(id: string) {
         this.id = id;
         this.players = [];
+        this.mobs = [];
     }
 
     updateScore(shooter: string) {

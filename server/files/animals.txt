@@ -13,8 +13,10 @@ Horse
 Deer
 Lynx
 Giraffe
+Coconut
 Chicken
 Sheep
 Pig
 Shark
-Coconut
+Twift
+Penguin

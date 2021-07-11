@@ -4,19 +4,21 @@ import Self from './Self';
 import Listener from '../utils/Listener';
 import Remote from '../net/Remote';
 import View from '../view/View';
+import Mob from './Mob';
 
 export default class Game {
 
   private listener: Listener;
   public self: Self;
   public enemies: Player [];
+  public mobs: Mob [];
   public projectiles: Projectile [];
 
   public constructor() {
     this.listener = new Listener(this);
     this.projectiles = [];
     this.enemies = [];
-
+    this.mobs = [];
   }
 
   public init(): void {

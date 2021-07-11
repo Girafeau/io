@@ -2,30 +2,25 @@ import Game from '../logic/Game';
 
 export default class View {
 
-  public static FONT = 'Ubuntu';
-  public static HEIGHT;
-  public static WIDTH;
+  public static FONT = 'Inter';
+  public static HEIGHT: number;
+  public static WIDTH: number;
 
-  public constructor(game: Game, canvas, width: number, height: number, nativeElement: any) {
+  public constructor(game: Game, canvas, width: number, height: number) {
     View.HEIGHT = height;
     View.WIDTH = width;
     this.game = game;
     this.canvas = canvas;
     this.numStars = 2000;
-    this.element = nativeElement;
     this.radius = '0.' + Math.floor(Math.random() * 9) + 1  ;
   }
 
-  private element;
   private readonly numStars: number;
   private game: Game;
   private canvas;
   private stars;
   private scores;
   private readonly radius: string;
-  private mouseX: any;
-  private mouseY: any;
-
 
   public render(): void {
     this.drawMap();
@@ -55,8 +50,8 @@ export default class View {
       const star = this.stars[i];
       pixelX = (star.x - View.WIDTH / 2) * (View.WIDTH * 2 / star.z);
       pixelX += View.WIDTH / 2;
-      pixelY = (star.y - View.HEIGHT / 2) * (View.WIDTH * 2 / star.z);
-      pixelY += View.HEIGHT / 2;
+      pixelY = (star.y - View.WIDTH / 2) * (View.WIDTH * 2 / star.z);
+      pixelY += View.WIDTH / 2;
       pixelRadius = (View.WIDTH * 2 / star.z) / 2;
       this.canvas.fillRect(pixelX, pixelY, pixelRadius, pixelRadius);
       this.canvas.fillStyle = 'rgba(209, 255, 255, ' + star.o + ')';
@@ -75,6 +70,7 @@ export default class View {
   }
 
   public drawMap(): void {
+
     this.canvas.clearRect(0, 0, View.WIDTH, View.HEIGHT);
   }
 
@@ -166,7 +162,6 @@ export default class View {
 
 
   public init(): void {
-
     this.canvas.font = '20px ' + View.FONT;
     this.stars = [];
     for (let i = 0; i < this.numStars; i++){
@@ -178,9 +173,5 @@ export default class View {
       };
       this.stars.push(star);
     }
-    this.element.addEventListener('mousemove', e => {
-      this.mouseX = e.clientX;
-      this.mouseY = e.clientY;
-    });
   }
 }

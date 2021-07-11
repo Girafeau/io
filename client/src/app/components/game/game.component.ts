@@ -36,7 +36,7 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
     this.game = new Game();
-    this.view = new View(this.game, canvas, width, height, this.element.nativeElement);
+    this.view = new View(this.game, canvas, width, height);
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);
     this.logic.init();

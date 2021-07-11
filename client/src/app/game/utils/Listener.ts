@@ -8,13 +8,14 @@ export default class Listener {
   x: number;
   y: number;
   pressed: boolean;
+  private mouseX: any;
+  private mouseY: any;
 
   public constructor(game: Game) {
     this.game = game;
   }
 
   public init(): void {
-
     addEventListener('keydown', (e) => {
       Key.KEYS[e.key] = true;
       if (e.key === ' ') {
@@ -32,6 +33,11 @@ export default class Listener {
 
     addEventListener('click',  (e) => {
       this.game.self.fire(e.offsetX, e.offsetY);
+    });
+
+    addEventListener('mousemove', e => {
+      this.mouseX = e.clientX;
+      this.mouseY = e.clientY;
     });
 
     /*

@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo&family=Inter&display=swap');
 
 * { margin: 0; padding: 0;}
 
-body, html { height:100%;overflow: hidden; font-family: 'Ubuntu', cursive;}
+body, html { height:100%;overflow: hidden; font-family: 'Inter', cursive;  background-color:  rgb(33, 36, 41);}
 
 .game {
   position:absolute;
-
+  font-family: 'Cairo', sans-serif;
 }
