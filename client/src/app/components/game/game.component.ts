@@ -4,6 +4,8 @@ import Game from '../../game/logic/Game';
 import View from '../../game/view/View';
 import Remote from '../../game/net/Remote';
 import {ActivatedRoute} from '@angular/router';
+import Key from '../../game/utils/Key';
+import {faChevronUp, faChevronDown, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-game',
@@ -19,8 +21,20 @@ export class GameComponent implements AfterViewInit, OnInit {
   private view: View;
   private remote: Remote;
   private room: string;
+  chevronUp = faChevronUp;
+  chevronDown = faChevronDown;
+  chevronLeft = faChevronLeft;
+  chevronRight = faChevronRight;
 
   constructor(private route: ActivatedRoute) {
+  }
+
+  public push(key: string): void {
+    Key.push(key);
+  }
+
+  public pop(key: string): void {
+    Key.pop(key);
   }
 
   public ngOnInit(): void {
@@ -35,7 +49,7 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
-    this.game = new Game();
+    this.game = new Game(this.element.nativeElement);
     this.view = new View(this.game, canvas, width, height);
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);

@@ -1,6 +1,7 @@
 import Key from './Key';
 import Game from '../logic/Game';
 import Remote from '../net/Remote';
+import View from '../view/View';
 
 export default class Listener {
 
@@ -10,14 +11,16 @@ export default class Listener {
   pressed: boolean;
   private mouseX: any;
   private mouseY: any;
+  private context: any;
 
-  public constructor(game: Game) {
+  public constructor(game: Game, context: any) {
     this.game = game;
+    this.context = context;
   }
 
   public init(): void {
     addEventListener('keydown', (e) => {
-      Key.KEYS[e.key] = true;
+      Key.push(e.key);
       if (e.key === ' ') {
           this.game.self.tauntEnemies();
       }
@@ -25,14 +28,14 @@ export default class Listener {
     });
 
     addEventListener('keyup',  (e) => {
-      Key.KEYS[e.key] = false;
+      Key.pop(e.key);
       if (e.key === ' ') {
         this.game.self.unTauntEnemies();
       }
     });
 
-    addEventListener('click',  (e) => {
-      this.game.self.fire(e.offsetX, e.offsetY);
+    this.context.addEventListener('click',  (e) => {
+        this.game.self.fire(e.offsetX, e.offsetY);
     });
 
     addEventListener('mousemove', e => {

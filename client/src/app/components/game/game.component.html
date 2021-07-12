@@ -1,5 +1,9 @@
 
 <div class="screen">
   <canvas #game class="game"></canvas>
+  <button class="button top" (mousedown)="push('z')" (mouseup)="pop('z')"><fa-icon [icon]="chevronUp"></fa-icon></button>
+  <button class="button bottom" (mousedown)="push('s')" (mouseup)="pop('s')"><fa-icon [icon]="chevronDown"></fa-icon></button>
+  <button class="button right" (mousedown)="push('d')" (mouseup)="pop('d')"><fa-icon [icon]="chevronRight"></fa-icon></button>
+  <button class="button left" (mousedown)="push('q')" (mouseup)="pop('q')"><fa-icon [icon]="chevronLeft"></fa-icon></button>
 </div>
 

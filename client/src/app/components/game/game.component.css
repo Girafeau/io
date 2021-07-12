@@ -1,0 +1,33 @@
+.button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(25, 27, 31);
+  border-radius: 15px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  color: white;
+}
+
+.button.top {
+  bottom: 105px;
+  left: 55px;
+}
+
+
+.button.bottom {
+  bottom: 5px;
+  left: 55px;
+}
+
+.button.left {
+  bottom: 55px;
+  left: 5px;
+}
+
+.button.right {
+  bottom: 55px;
+  left: 105px;
+}

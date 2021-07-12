@@ -14,8 +14,8 @@ export default class Game {
   public mobs: Mob [];
   public projectiles: Projectile [];
 
-  public constructor() {
-    this.listener = new Listener(this);
+  public constructor(context: any) {
+    this.listener = new Listener(this, context);
     this.projectiles = [];
     this.enemies = [];
     this.mobs = [];
