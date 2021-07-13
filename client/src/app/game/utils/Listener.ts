@@ -1,7 +1,5 @@
 import Key from './Key';
 import Game from '../logic/Game';
-import Remote from '../net/Remote';
-import View from '../view/View';
 
 export default class Listener {
 
@@ -21,9 +19,6 @@ export default class Listener {
   public init(): void {
     addEventListener('keydown', (e) => {
       Key.push(e.key);
-      if (e.key === ' ') {
-          this.game.self.tauntEnemies();
-      }
       e.preventDefault();
     });
 

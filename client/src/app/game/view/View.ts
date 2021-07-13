@@ -12,7 +12,7 @@ export default class View {
     this.game = game;
     this.canvas = canvas;
     this.numStars = 2000;
-    this.radius = '0.' + Math.floor(Math.random() * 9) + 1  ;
+    this.radius = '0.' + Math.floor(Math.random() * 9) + 1;
   }
 
   private readonly numStars: number;
@@ -21,6 +21,7 @@ export default class View {
   private stars;
   private scores;
   private readonly radius: string;
+
 
   public render(): void {
     this.drawMap();
@@ -70,6 +71,7 @@ export default class View {
   }
 
   public drawMap(): void {
+    this.canvas.save();
 
     this.canvas.clearRect(0, 0, View.WIDTH, View.HEIGHT);
   }

@@ -42,8 +42,8 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = window.innerWidth + 1000;
+    const height = window.innerHeight + 1000;
     const url = location.origin.replace(/^http/, 'ws');
     //const url = 'ws://localhost:3000';
     this.element.nativeElement.width = width;

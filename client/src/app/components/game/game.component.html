@@ -1,9 +1,9 @@
 
 <div class="screen">
   <canvas #game class="game"></canvas>
-  <button class="button top" (press)="push('z')" (pressup)="pop('z')" (mousedown)="push('z')" (mouseup)="pop('z')"><fa-icon [icon]="chevronUp"></fa-icon></button>
-  <button class="button bottom" (press)="push('s')" (pressup)="pop('s')" (mousedown)="push('s')" (mouseup)="pop('s')"><fa-icon [icon]="chevronDown"></fa-icon></button>
-  <button class="button right" (press)="push('d')" (pressup)="pop('d')" (mousedown)="push('d')" (mouseup)="pop('d')"><fa-icon [icon]="chevronRight"></fa-icon></button>
-  <button class="button left" (press)="push('q')" (pressup)="pop('q')" (mousedown)="push('q')" (mouseup)="pop('q')"><fa-icon [icon]="chevronLeft"></fa-icon></button>
+  <button class="button top" (touchstart)="push('z')" (touchend)="pop('z')"  (mousedown)="push('z')" (mouseup)="pop('z')"><fa-icon [icon]="chevronUp"></fa-icon></button>
+  <button class="button bottom" (touchstart)="push('s')" (touchend)="pop('s')" (mousedown)="push('s')" (mouseup)="pop('s')"><fa-icon [icon]="chevronDown"></fa-icon></button>
+  <button class="button right" (touchstart)="push('d')" (touchend)="pop('d')" (mousedown)="push('d')" (mouseup)="pop('d')"><fa-icon [icon]="chevronRight"></fa-icon></button>
+  <button class="button left" (touchstart)="push('q')" (touchend)="pop('q')" (mousedown)="push('q')" (mouseup)="pop('q')"><fa-icon [icon]="chevronLeft"></fa-icon></button>
 </div>
 
