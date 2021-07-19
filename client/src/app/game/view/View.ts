@@ -11,7 +11,7 @@ export default class View {
     View.WIDTH = width;
     this.game = game;
     this.canvas = canvas;
-    this.numStars = 2000;
+    this.numStars = 10000;
     this.radius = '0.' + Math.floor(Math.random() * 9) + 1;
   }
 
@@ -54,7 +54,7 @@ export default class View {
       pixelY = (star.y - View.WIDTH / 2) * (View.WIDTH * 2 / star.z);
       pixelY += View.WIDTH / 2;
       pixelRadius = (View.WIDTH * 2 / star.z) / 2;
-      this.canvas.fillRect(pixelX, pixelY, pixelRadius, pixelRadius);
+      this.canvas.fillRect(pixelX - this.game.camera.xView, pixelY - this.game.camera.yView, pixelRadius, pixelRadius);
       this.canvas.fillStyle = 'rgba(209, 255, 255, ' + star.o + ')';
     }
   }
@@ -82,21 +82,21 @@ export default class View {
       this.canvas.fillStyle = 'red';
     }
     this.canvas.beginPath();
-    this.canvas.moveTo(this.game.self.x - this.game.self.width, this.game.self.y + this.game.self.width);
-    this.canvas.lineTo(this.game.self.x + this.game.self.width, this.game.self.y + this.game.self.width);
-    this.canvas.lineTo(this.game.self.x, this.game.self.y - this.game.self.width);
+    this.canvas.moveTo(this.game.self.x - this.game.self.width - this.game.camera.xView, this.game.self.y + this.game.self.width - this.game.camera.yView);
+    this.canvas.lineTo(this.game.self.x + this.game.self.width - this.game.camera.xView, this.game.self.y + this.game.self.width - this.game.camera.yView);
+    this.canvas.lineTo(this.game.self.x - this.game.camera.xView, this.game.self.y - this.game.self.width - this.game.camera.yView);
     this.canvas.closePath();
     this.canvas.fill();
     this.canvas.fillStyle = 'white';
     this.canvas.font = '15px ' + View.FONT;
-    this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 20, this.game.self.y - 45);
-    this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 20, this.game.self.y - 25);
-    this.canvas.fillText(`${this.game.self.name}`, this.game.self.x - 45, this.game.self.y  + 50);
+    this.canvas.fillText(`${this.game.self.x}`, this.game.self.x - 20 - this.game.camera.xView, this.game.self.y - 45 - this.game.camera.yView);
+    this.canvas.fillText(`${this.game.self.y}`, this.game.self.x - 20 - this.game.camera.xView, this.game.self.y - 25 - this.game.camera.yView);
+    this.canvas.fillText(`${this.game.self.name}`, this.game.self.x - 45 - this.game.camera.xView, this.game.self.y  + 50 - this.game.camera.yView);
     this.canvas.font = '20px ' + View.FONT;
     this.canvas.fillStyle = 'grey';
-    this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 25, 30, 5);
+    this.canvas.fillRect(this.game.self.x - 15 - this.game.camera.xView, this.game.self.y + 25 - this.game.camera.yView, 30, 5);
     this.canvas.fillStyle = 'red';
-    this.canvas.fillRect(this.game.self.x - 15, this.game.self.y + 25, this.game.self.refill * 30 / this.game.self.refillMax, 5);
+    this.canvas.fillRect(this.game.self.x - 15 - this.game.camera.xView, this.game.self.y + 25 - this.game.camera.yView, this.game.self.refill * 30 / this.game.self.refillMax, 5);
   }
 
   public drawEnemies(): void {
@@ -106,14 +106,14 @@ export default class View {
         this.canvas.fillStyle = 'red';
       }
       this.canvas.beginPath();
-      this.canvas.moveTo(enemy.x - enemy.width, enemy.y + enemy.width);
-      this.canvas.lineTo(enemy.x + enemy.width, enemy.y + enemy.width);
-      this.canvas.lineTo(enemy.x, enemy.y - enemy.width);
+      this.canvas.moveTo(enemy.x - enemy.width - this.game.camera.xView, enemy.y + enemy.width - this.game.camera.yView);
+      this.canvas.lineTo(enemy.x + enemy.width - this.game.camera.xView, enemy.y + enemy.width - this.game.camera.yView);
+      this.canvas.lineTo(enemy.x - this.game.camera.xView, enemy.y - enemy.width - this.game.camera.yView);
       this.canvas.closePath();
       this.canvas.fill();
       this.canvas.fillStyle = 'white';
       this.canvas.font = '15px ' + View.FONT;
-      this.canvas.fillText(`${enemy.name}`, enemy.x - 45, enemy.y  + 50);
+      this.canvas.fillText(`${enemy.name}`, enemy.x - 45 - this.game.camera.xView, enemy.y  + 50 - this.game.camera.yView);
       this.canvas.font = '20px ' + View.FONT;
     });
   }
@@ -155,8 +155,8 @@ export default class View {
       this.canvas.beginPath();
       this.canvas.lineCap = 'round';
       this.canvas.lineWidth = 4;
-      this.canvas.lineTo(projectile.old.x, projectile.old.y);
-      this.canvas.lineTo(projectile.x, projectile.y);
+      this.canvas.lineTo(projectile.old.x - this.game.camera.xView, projectile.old.y - this.game.camera.yView);
+      this.canvas.lineTo(projectile.x - this.game.camera.xView, projectile.y - this.game.camera.yView);
       this.canvas.stroke();
       this.canvas.closePath();
     });

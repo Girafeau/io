@@ -5,20 +5,23 @@ import Listener from '../utils/Listener';
 import Remote from '../net/Remote';
 import View from '../view/View';
 import Mob from './Mob';
+import Camera from './Camera';
 
 export default class Game {
 
   private listener: Listener;
+  public camera: Camera;
   public self: Self;
   public enemies: Player [];
   public mobs: Mob [];
   public projectiles: Projectile [];
 
-  public constructor(context: any) {
+  public constructor(context: any, camera: Camera) {
     this.listener = new Listener(this, context);
     this.projectiles = [];
     this.enemies = [];
     this.mobs = [];
+    this.camera = camera;
   }
 
   public init(): void {
@@ -56,10 +59,12 @@ export default class Game {
         }
       }
     });
+    this.camera.update();
   }
 
   public setSelf(id: string, name: string, color: string, x: number, y: number, score: number): void {
     this.self = new Self(id, name, color, x , y, score);
+    this.camera.follow(this.self, this.camera.wView / 2, this.camera.hView / 2);
   }
 
   public addEnemy(id: string, name: string, color: string, x: number, y: number, score: number): void {

@@ -6,6 +6,7 @@ import Remote from '../../game/net/Remote';
 import {ActivatedRoute} from '@angular/router';
 import Key from '../../game/utils/Key';
 import {faChevronUp, faChevronDown, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import Camera from '../../game/logic/Camera';
 
 @Component({
   selector: 'app-game',
@@ -42,14 +43,15 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = window.innerWidth + 1000;
-    const height = window.innerHeight + 1000;
+    const width = 5000;
+    const height = 5000;
     const url = location.origin.replace(/^http/, 'ws');
     //const url = 'ws://localhost:3000';
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
-    this.game = new Game(this.element.nativeElement);
+    const camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
+    this.game = new Game(this.element.nativeElement, camera);
     this.view = new View(this.game, canvas, width, height);
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);

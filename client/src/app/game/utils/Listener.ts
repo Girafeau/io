@@ -30,7 +30,7 @@ export default class Listener {
     });
 
     this.context.addEventListener('click',  (e) => {
-        this.game.self.fire(e.offsetX, e.offsetY);
+        this.game.self.fire(e.clientX + this.game.camera.xView, e.clientY + this.game.camera.yView);
     });
 
     addEventListener('mousemove', e => {

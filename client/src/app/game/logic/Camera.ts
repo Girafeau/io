@@ -1,10 +1,11 @@
-import Player from '../logic/Player';
+import Player from './Player';
+import View from '../view/View';
 
 export default class Camera {
-  private xView: number;
-  private yView: number;
-  private wView: number;
-  private hView: number;
+  public xView: number;
+  public yView: number;
+  public wView: number;
+  public hView: number;
   private xDeadZone: number;
   private yDeadZone: number;
   private player: Player;
@@ -37,6 +38,18 @@ export default class Camera {
     }
     else if (this.player.y - this.yDeadZone < this.yView) {
       this.yView = this.player.y - this.yDeadZone;
+    }
+
+    if (this.xView > View.WIDTH) {
+      this.xView = View.WIDTH - this.wView;
+    } else if (this.xView < 0) {
+      this.xView = 0;
+    }
+
+    if (this.yView > View.HEIGHT) {
+      this.yView = View.HEIGHT - this.hView;
+    } else if (this.yView < 0) {
+      this.yView = 0;
     }
   }
 
