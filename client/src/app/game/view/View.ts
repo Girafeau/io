@@ -121,10 +121,10 @@ export default class View {
   public drawScore(): void  {
     this.canvas.font = '20px ' + View.FONT;
     this.canvas.fillStyle = 'white';
-    this.canvas.fillText(`You have ${this.game.self.score} point(s).`, 200, 70);
+    this.canvas.fillText(`You have ${this.game.self.score} point(s).`, 200 - this.game.camera.xView, 70 - this.game.camera.yView);
     // this.canvas.strokeStyle = 'red';
     // this.canvas.strokeRect(175, 25, 250, 80);
-    this.canvas.fillText(`Scores : `, 500, 70);
+    this.canvas.fillText(`Scores : `, 500 - this.game.camera.xView, 70 - this.game.camera.yView);
     this.scores = this.game.enemies.map(e => {
       return {
         name: e.name,
@@ -136,11 +136,11 @@ export default class View {
       score: this.game.self.score
     });
     this.scores.sort((a, b) => b.score - a.score).forEach((e, i) => {
-      this.canvas.fillText(`${i + 1}. ${e.name} : ${e.score}`, 500, 100 + i * 30);
+      this.canvas.fillText(`${i + 1}. ${e.name} : ${e.score}`, 500 - this.game.camera.xView, (100 + i * 30) - this.game.camera.yView);
     });
     this.canvas.lineWidth = 2;
     this.canvas.strokeStyle = 'red';
-    this.canvas.strokeRect(475, 25, 300, (this.scores.length + 1) * 30 + 50);
+    this.canvas.strokeRect(475 - this.game.camera.xView, 25 - this.game.camera.yView, 300, (this.scores.length + 1) * 30 + 50);
   }
 
   public drawProjectiles(): void {

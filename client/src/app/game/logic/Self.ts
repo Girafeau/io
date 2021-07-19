@@ -31,9 +31,9 @@ export default class Self extends Player {
       x: super.x,
       y: super.y
     };
-    this.speed = 5;
-    this.respawnTime = 500;
-    this.timer = 500;
+    this.speed = 8;
+    this.respawnTime = 250;
+    this.timer = 250;
     this.angle = 90;
   }
 
