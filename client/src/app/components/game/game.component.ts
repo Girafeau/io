@@ -44,7 +44,7 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = 2000;
+    const width = 3000;
     const height = 2000;
     const url = location.origin.replace(/^http/, 'ws');
     //const url = 'ws://localhost:3000';
