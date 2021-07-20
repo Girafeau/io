@@ -32,7 +32,7 @@ export default class Logic {
   }
 
   public update(): void {
-    this.game.update();
+      this.game.update();
   }
 
   public render(): void {

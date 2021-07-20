@@ -11,7 +11,7 @@ export default class View {
     View.WIDTH = width;
     this.game = game;
     this.canvas = canvas;
-    this.numStars = 10000;
+    this.numStars = 500;
     this.radius = '0.' + Math.floor(Math.random() * 9) + 1;
   }
 

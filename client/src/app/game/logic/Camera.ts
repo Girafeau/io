@@ -40,13 +40,13 @@ export default class Camera {
       this.yView = this.player.y - this.yDeadZone;
     }
 
-    if (this.xView > View.WIDTH) {
+    if (this.xView + this.wView > View.WIDTH) {
       this.xView = View.WIDTH - this.wView;
     } else if (this.xView < 0) {
       this.xView = 0;
     }
 
-    if (this.yView > View.HEIGHT) {
+    if (this.yView + this.hView > View.HEIGHT) {
       this.yView = View.HEIGHT - this.hView;
     } else if (this.yView < 0) {
       this.yView = 0;
