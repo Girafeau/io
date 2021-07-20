@@ -5,6 +5,7 @@ import Physic from './Physic';
 import Remote from '../net/Remote';
 import Utils from '../utils/Utils';
 import View from '../view/View';
+import Obstacle from './Obstacle';
 
 export default class Self extends Player {
 
@@ -47,7 +48,7 @@ export default class Self extends Player {
     return ({x1, y1});
   }
 
-  public move(): void {
+  public move(obstacles: Obstacle[]): void {
     if (Key.KEYS[Key.KEY_UP] || Key.KEYS[Key.KEY_UP_2]) {
       if (this.v.y > -this.speed) {
         this.v.y--;
@@ -71,9 +72,27 @@ export default class Self extends Player {
     }
 
     this.v.y *= Physic.FRICTION;
-    this.y += this.v.y;
     this.v.x *= Physic.FRICTION;
-    this.x += this.v.x;
+    let isXBlocked = false;
+    let isYBlocked = false;
+    obstacles.forEach(o => {
+      if (this.x + this.v.x + this.width + 2 >= o.x && this.x + this.v.x - this.width - 2 <= o.x + o.width && this.y + this.height >= o.y && this.y - this.height <= o.y + o.height) {
+        isXBlocked = true;
+      }
+      if (this.x + this.width >= o.x && this.x - this.width <= o.x + o.width && this.y + this.v.y + this.height + 2 >= o.y && this.y + this.v.y - this.height - 2 <= o.y + o.height) {
+        isYBlocked = true;
+      }
+    });
+      if (!isXBlocked) {
+        this.x += this.v.x;
+      }
+      if (!isYBlocked) {
+        this.y += this.v.y;
+      }
+
+
+
+
 
     if (this.x >= View.WIDTH - 5) {
       this.x = View.WIDTH;

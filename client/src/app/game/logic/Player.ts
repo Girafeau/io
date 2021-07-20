@@ -2,6 +2,7 @@ import Game from './Game';
 import Projectile from './Projectile';
 import Remote from '../net/Remote';
 import Utils from '../utils/Utils';
+import Obstacle from './Obstacle';
 
 export default class Player {
 

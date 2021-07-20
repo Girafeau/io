@@ -6,6 +6,7 @@ import Remote from '../net/Remote';
 import View from '../view/View';
 import Mob from './Mob';
 import Camera from './Camera';
+import World from './World';
 
 export default class Game {
 
@@ -15,13 +16,15 @@ export default class Game {
   public enemies: Player [];
   public mobs: Mob [];
   public projectiles: Projectile [];
+  public world: World;
 
-  public constructor(context: any, camera: Camera) {
+  public constructor(context: any, camera: Camera, world: World) {
     this.listener = new Listener(this, context);
     this.projectiles = [];
     this.enemies = [];
     this.mobs = [];
     this.camera = camera;
+    this.world = world;
   }
 
   public init(): void {
@@ -43,13 +46,16 @@ export default class Game {
         id: this.self.id
       });
     }
+
     if (!this.self.dead) {
-      this.self.move();
+      this.self.move(this.world.obstacles);
     }
+
     this.projectiles.forEach((projectile, index, object) => {
       projectile.move();
       const isOut: boolean = projectile.x > View.WIDTH || projectile.x < 0 || projectile.y > View.HEIGHT || projectile.y < 0;
       const isNotMoving: boolean = projectile.old.x === projectile.x && projectile.y === projectile.old.y;
+
       if ( isOut || isNotMoving ) {
         object.splice(index, 1);
       }
@@ -59,6 +65,7 @@ export default class Game {
         }
       }
     });
+
     this.camera.update();
   }
 

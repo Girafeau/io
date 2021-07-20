@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import Key from '../../game/utils/Key';
 import {faChevronUp, faChevronDown, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 import Camera from '../../game/logic/Camera';
+import World from '../../game/logic/World';
 
 @Component({
   selector: 'app-game',
@@ -50,9 +51,10 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
+    const world = new World(width, height);
     const camera = new Camera(0, 0, window.innerWidth, window.innerHeight);
-    this.game = new Game(this.element.nativeElement, camera);
-    this.view = new View(this.game, canvas, width, height);
+    this.game = new Game(this.element.nativeElement, camera, world);
+    this.view = new View(this.game, canvas, world.width, world.height);
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);
     this.logic.init();

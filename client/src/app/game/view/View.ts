@@ -31,6 +31,7 @@ export default class View {
     this.drawEnemies();
     this.drawProjectiles();
     this.drawScore();
+    this.drawWorld();
   }
 
   private drawBackground(): void {
@@ -72,8 +73,14 @@ export default class View {
 
   public drawMap(): void {
     this.canvas.save();
-
     this.canvas.clearRect(0, 0, View.WIDTH, View.HEIGHT);
+  }
+
+  public drawWorld(): void {
+    this.canvas.fillStyle = 'white';
+    this.game.world.obstacles.forEach(o => {
+      this.canvas.fillRect(o.x - this.game.camera.xView, o.y - this.game.camera.yView, o.width, o.height);
+    });
   }
 
   public drawSelf(): void {
