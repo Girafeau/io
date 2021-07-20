@@ -11,7 +11,7 @@ export default class View {
     View.WIDTH = width;
     this.game = game;
     this.canvas = canvas;
-    this.numStars = 500;
+    this.numStars = 0;
     this.radius = '0.' + Math.floor(Math.random() * 9) + 1;
   }
 
@@ -73,7 +73,7 @@ export default class View {
 
   public drawMap(): void {
     this.canvas.save();
-    this.canvas.clearRect(0, 0, View.WIDTH, View.HEIGHT);
+    this.canvas.clearRect(0, 0, this.game.camera.wView, this.game.camera.hView);
   }
 
   public drawWorld(): void {
