@@ -13,4 +13,11 @@ export default class Obstacle {
     this.x = x;
     this.y = y;
   }
+
+  public hit(projectile: Projectile): boolean {
+    return (projectile.x < this.x + this.width &&
+      projectile.x + projectile.width > this.x &&
+      projectile.y < this.y + this.height &&
+      projectile.height + projectile.y > this.y);
+  }
 }

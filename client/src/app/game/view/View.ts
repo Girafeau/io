@@ -11,7 +11,7 @@ export default class View {
     View.WIDTH = width;
     this.game = game;
     this.canvas = canvas;
-    this.numStars = 0;
+    this.numStars = 500;
     this.radius = '0.' + Math.floor(Math.random() * 9) + 1;
   }
 
@@ -54,7 +54,7 @@ export default class View {
       pixelX += View.WIDTH / 2;
       pixelY = (star.y - View.WIDTH / 2) * (View.WIDTH * 2 / star.z);
       pixelY += View.WIDTH / 2;
-      pixelRadius = (View.WIDTH * 2 / star.z) / 2;
+      pixelRadius = (View.WIDTH * 2 / star.z);
       this.canvas.fillRect(pixelX - this.game.camera.xView, pixelY - this.game.camera.yView, pixelRadius, pixelRadius);
       this.canvas.fillStyle = 'rgba(209, 255, 255, ' + star.o + ')';
     }

@@ -62,7 +62,7 @@ export default class Player {
       Utils.distance(projectile.x, projectile.y, this.x, this.y);
     const d2: number = Utils.distance(projectile.old.x, projectile.old.y, projectile.x, projectile.y);
     return ((projectile.x < this.x + this.width &&
-      projectile.x + this.width > this.x &&
+      projectile.x + projectile.width > this.x &&
       projectile.y < this.y + this.height &&
       projectile.height + projectile.y > this.y) || (d1 >= d2 - this.width && d1 <= d2 + this.width)) && projectile.shooter !== this.id;
   }

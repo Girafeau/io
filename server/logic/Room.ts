@@ -1,16 +1,20 @@
 import Player from "./Player.ts";
 import Mob from './Mob.ts';
+import { randomSeed} from '../utils/generator.ts';
 
 export default class Room {
 
     id: string;
     players: Player [];
     mobs: Mob [];
+    seed: string;
 
     constructor(id: string) {
         this.id = id;
         this.players = [];
         this.mobs = [];
+
+        this.seed = randomSeed(25);
     }
 
     updateScore(shooter: string) {

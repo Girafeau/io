@@ -17,7 +17,7 @@ export default class Projectile {
     this.x = x;
     this.y = y;
     this.angle = angle;
-    this.speed = 70;
+    this.speed = 50;
     this.width = 4;
     this.height = 4;
     this.mass = 5;

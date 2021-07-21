@@ -16,7 +16,28 @@ const color = (): string => {
     return hexs[nh];
 }
 
+const randomInt = (min: number, max: number): number => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const randomSeed = (nbObstacles: number): string => {
+    let s = "";
+    let maxX = 3000;
+    let maxY = 2000;
+    for(let i = 0; i < nbObstacles; i++) {
+        s += randomInt(100, maxX) + ':' + randomInt(100, maxY) + ':' + randomInt(50, 500) + ':' + randomInt(50, 500)
+        if ( i < nbObstacles - 1) {
+            s+= '.'
+        }
+    }
+    return s;
+}
+
 export {
     name,
-    color
+    color,
+    randomInt,
+    randomSeed
 };

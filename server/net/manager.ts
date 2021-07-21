@@ -72,6 +72,7 @@ export class Manager {
                     socket.send(room + '@player@' + JSON.stringify(player));
                 }
             });
+            sock.send(room + '@map@' + JSON.stringify(existence.seed));
             sock.send(room + '@self@' + JSON.stringify(player));
         });
 

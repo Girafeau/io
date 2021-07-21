@@ -60,6 +60,10 @@ export default class Remote {
           handle();
         });
 
+        this.on(message, 'map', () => {
+          this.game.world.create(object);
+        });
+
         this.on(message, 'enemies', () => {
           object.forEach(enemy => {
             this.game.addEnemy(enemy.id, enemy.name, enemy.color, enemy.x, enemy.y, enemy.score);

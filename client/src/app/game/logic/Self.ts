@@ -75,24 +75,24 @@ export default class Self extends Player {
     this.v.x *= Physic.FRICTION;
     let isXBlocked = false;
     let isYBlocked = false;
-    obstacles.forEach(o => {
-      if (this.x + this.v.x + this.width + 2 >= o.x && this.x + this.v.x - this.width - 2 <= o.x + o.width && this.y + this.height >= o.y && this.y - this.height <= o.y + o.height) {
+    let i = 0;
+    while ((!isXBlocked || !isYBlocked) && i < obstacles.length) {
+      if (this.x + this.v.x + this.width + 2 >= obstacles[i].x && this.x + this.v.x - this.width - 2 <= obstacles[i].x + obstacles[i].width
+        && this.y + this.height >= obstacles[i].y && this.y - this.height <= obstacles[i].y + obstacles[i].height) {
         isXBlocked = true;
       }
-      if (this.x + this.width >= o.x && this.x - this.width <= o.x + o.width && this.y + this.v.y + this.height + 2 >= o.y && this.y + this.v.y - this.height - 2 <= o.y + o.height) {
+      if (this.x + this.width >= obstacles[i].x && this.x - this.width <= obstacles[i].x + obstacles[i].width
+        && this.y + this.v.y + this.height + 2 >= obstacles[i].y && this.y + this.v.y - this.height - 2 <= obstacles[i].y + obstacles[i].height) {
         isYBlocked = true;
       }
-    });
-      if (!isXBlocked) {
-        this.x += this.v.x;
-      }
-      if (!isYBlocked) {
-        this.y += this.v.y;
-      }
-
-
-
-
+      i++;
+    }
+    if (!isXBlocked) {
+      this.x += this.v.x;
+    }
+    if (!isYBlocked) {
+      this.y += this.v.y;
+    }
 
     if (this.x >= View.WIDTH - 5) {
       this.x = View.WIDTH;

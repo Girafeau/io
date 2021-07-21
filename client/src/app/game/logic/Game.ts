@@ -55,8 +55,13 @@ export default class Game {
       projectile.move();
       const isOut: boolean = projectile.x > View.WIDTH || projectile.x < 0 || projectile.y > View.HEIGHT || projectile.y < 0;
       const isNotMoving: boolean = projectile.old.x === projectile.x && projectile.y === projectile.old.y;
-
-      if ( isOut || isNotMoving ) {
+      let hasTouchedObstacle = false;
+      let i = 0;
+      while (!hasTouchedObstacle && i < this.world.obstacles.length) {
+        hasTouchedObstacle = this.world.obstacles[i].hit(projectile);
+        i++;
+      }
+      if (isOut || isNotMoving || hasTouchedObstacle) {
         object.splice(index, 1);
       }
       if (this.self.hit(projectile)) {
