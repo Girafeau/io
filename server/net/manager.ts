@@ -63,7 +63,7 @@ export class Manager {
             if (existence) {
                 sock.send(room + '@enemies@' + JSON.stringify(existence.players));
             } else {
-                existence = new Room(room);
+                existence = new Room(room, object.seed);
                 this.game.addRoom(existence);
             }
             existence.addPlayer(player);

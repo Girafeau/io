@@ -45,6 +45,12 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
+    const query = location.search;
+    const params = new URLSearchParams(query);
+    let seed = params.get('seed');
+    if (!seed) {
+      seed = '';
+    }
     const width = 4000;
     const height = 2500;
     let url = location.origin.replace(/^http/, 'ws');
@@ -61,7 +67,7 @@ export class GameComponent implements AfterViewInit, OnInit {
     this.logic = new Logic(this.game, this.view);
     this.remote = new Remote(this.game);
     this.logic.init();
-    this.remote.connect(url, this.room, () => {
+    this.remote.connect(url, this.room, seed, () => {
       this.logic.start();
     }, () => {
       console.log("error");

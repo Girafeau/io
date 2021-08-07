@@ -9,12 +9,16 @@ export default class Room {
     mobs: Mob [];
     seed: string;
 
-    constructor(id: string) {
+    constructor(id: string, seed: string) {
         this.id = id;
         this.players = [];
         this.mobs = [];
+        if (!seed || this.isNotValid(seed)) {
+            this.seed = randomSeed(35);
+        } else {
+            this.seed = seed;
+        }
 
-        this.seed = randomSeed(35);
     }
 
     updateScore(shooter: string) {
@@ -46,5 +50,9 @@ export default class Room {
             player.dead = dead;
         }
         return player;
+    }
+
+    private isNotValid(seed: string) {
+        return false;
     }
 }

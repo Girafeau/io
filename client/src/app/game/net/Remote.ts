@@ -1,5 +1,4 @@
 import Game from '../logic/Game';
-import { nanoid } from 'nanoid';
 
 export default class Remote {
 
@@ -26,7 +25,7 @@ export default class Remote {
     }
   }
 
-  public connect(url: string, room: string, handle, err): void {
+  public connect(url: string, room: string, seed: string, handle, err): void {
     Remote.url = url;
     Remote.room = room;
     Remote.socket = new WebSocket(url);
@@ -35,7 +34,7 @@ export default class Remote {
     };
     Remote.socket.onopen = event => {
       console.log('socket opened');
-      Remote.socket.send(Remote.room + '@connect');
+      Remote.socket.send(room + '@connect@' + JSON.stringify({seed}) );
     };
     Remote.socket.onclose = event => {
       console.log('socket closed');
