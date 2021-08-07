@@ -14,7 +14,7 @@ export default class Room {
         this.players = [];
         this.mobs = [];
 
-        this.seed = randomSeed(25);
+        this.seed = randomSeed(35);
     }
 
     updateScore(shooter: string) {

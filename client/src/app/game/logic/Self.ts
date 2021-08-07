@@ -48,7 +48,7 @@ export default class Self extends Player {
     return ({x1, y1});
   }
 
-  public move(obstacles: Obstacle[]): void {
+  public move(isXBlocked: boolean, isYBlocked: boolean): void {
     if (Key.KEYS[Key.KEY_UP] || Key.KEYS[Key.KEY_UP_2]) {
       if (this.v.y > -this.speed) {
         this.v.y--;
@@ -73,20 +73,7 @@ export default class Self extends Player {
 
     this.v.y *= Physic.FRICTION;
     this.v.x *= Physic.FRICTION;
-    let isXBlocked = false;
-    let isYBlocked = false;
-    let i = 0;
-    while ((!isXBlocked || !isYBlocked) && i < obstacles.length) {
-      if (this.x + this.v.x + this.width + 2 >= obstacles[i].x && this.x + this.v.x - this.width - 2 <= obstacles[i].x + obstacles[i].width
-        && this.y + this.height >= obstacles[i].y && this.y - this.height <= obstacles[i].y + obstacles[i].height) {
-        isXBlocked = true;
-      }
-      if (this.x + this.width >= obstacles[i].x && this.x - this.width <= obstacles[i].x + obstacles[i].width
-        && this.y + this.v.y + this.height + 2 >= obstacles[i].y && this.y + this.v.y - this.height - 2 <= obstacles[i].y + obstacles[i].height) {
-        isYBlocked = true;
-      }
-      i++;
-    }
+
     if (!isXBlocked) {
       this.x += this.v.x;
     }

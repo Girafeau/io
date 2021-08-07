@@ -48,7 +48,21 @@ export default class Game {
     }
 
     if (!this.self.dead) {
-      this.self.move(this.world.obstacles);
+      let isXBlocked = false;
+      let isYBlocked = false;
+      let i = 0;
+      while ((!isXBlocked || !isYBlocked) && i < this.world.obstacles.length) {
+        if (this.self.x + this.self.v.x + this.self.width + 2 >= this.world.obstacles[i].x && this.self.x + this.self.v.x - this.self.width - 2 <= this.world.obstacles[i].x + this.world.obstacles[i].width
+          && this.self.y + this.self.height >= this.world.obstacles[i].y && this.self.y - this.self.height <= this.world.obstacles[i].y + this.world.obstacles[i].height) {
+          isXBlocked = true;
+        }
+        if (this.self.x + this.self.width >= this.world.obstacles[i].x && this.self.x - this.self.width <= this.world.obstacles[i].x + this.world.obstacles[i].width
+          && this.self.y + this.self.v.y + this.self.height + 2 >= this.world.obstacles[i].y && this.self.y + this.self.v.y - this.self.height - 2 <= this.world.obstacles[i].y + this.world.obstacles[i].height) {
+          isYBlocked = true;
+        }
+        i++;
+      }
+      this.self.move(isXBlocked, isYBlocked);
     }
 
     this.projectiles.forEach((projectile, index, object) => {

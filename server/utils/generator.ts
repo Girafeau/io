@@ -24,8 +24,8 @@ const randomInt = (min: number, max: number): number => {
 
 const randomSeed = (nbObstacles: number): string => {
     let s = "";
-    let maxX = 3000;
-    let maxY = 2000;
+    let maxX = 4000;
+    let maxY = 2500;
     for(let i = 0; i < nbObstacles; i++) {
         s += randomInt(100, maxX) + ':' + randomInt(100, maxY) + ':' + randomInt(50, 500) + ':' + randomInt(50, 500)
         if ( i < nbObstacles - 1) {

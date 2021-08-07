@@ -8,6 +8,7 @@ import Key from '../../game/utils/Key';
 import {faChevronUp, faChevronDown, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 import Camera from '../../game/logic/Camera';
 import World from '../../game/logic/World';
+import { isDevMode } from '@angular/core';
 
 @Component({
   selector: 'app-game',
@@ -44,10 +45,12 @@ export class GameComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-    const width = 3000;
-    const height = 2000;
-    const url = location.origin.replace(/^http/, 'ws');
-    //const url = 'ws://localhost:3000';
+    const width = 4000;
+    const height = 2500;
+    let url = location.origin.replace(/^http/, 'ws');
+    if (isDevMode()) {
+      url = 'ws://localhost:3000';
+    }
     this.element.nativeElement.width = width;
     this.element.nativeElement.height = height;
     const canvas = this.element.nativeElement.getContext('2d');
