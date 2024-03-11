@@ -1,0 +1,9 @@
+version: "3.5"
+services:
+  io:
+    build: .
+    restart: 'unless-stopped'
+    ports:
+      - "3213:3213"
+    environment:
+      PORT: "3213"
