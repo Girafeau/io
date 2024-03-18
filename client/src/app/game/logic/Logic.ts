@@ -14,7 +14,7 @@ export default class Logic {
 
   public constructor(game: Game, view: View) {
     this.stop = false;
-    this.interval = 1000 / 100;
+    this.interval = 1000 / Logic.FPS;
     this.delta = 0;
     this.now = Date.now();
     this.game = game;
